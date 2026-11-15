@@ -29,9 +29,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@git.nobbe.eu:22222/OliverNobbe/grav-leaflet-plugin-v2.git"
+    "url": "git+https://github.com/olivernobbe/grav-leaflet-plugin-v2.git"
   },
   "bugs": {
-    "url": "https://git.nobbe.eu/OliverNobbe/grav-leaflet-plugin-v2/issues"
-  }
+    "url": "https://github.com/olivernobbe/grav-leaflet-plugin-v2/issues"
+  },
+  "homepage": "https://github.com/olivernobbe/grav-leaflet-plugin-v2#readme"
 }

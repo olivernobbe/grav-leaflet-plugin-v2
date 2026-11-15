@@ -1,4 +1,4 @@
-# 2.0.0-beta.5 (release candidate, unpublished)
+# 2.0.0-beta.5 (2026-11-15)
 
 - Modernize built-in Mapbox styles using Static Tiles API and 512px tiles.
 - Preserve legacy style aliases and custom Raster Tiles API URLs.

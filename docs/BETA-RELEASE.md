@@ -1,6 +1,6 @@
 # V2-Beta: Kandidat 2.0.0-beta.5
 
-Noch nicht veröffentlicht oder getaggt. Leaflet bleibt exakt 2.0.0-beta.4;
+Leaflet bleibt exakt 2.0.0-beta.4;
 Pluginversion und Leafletversion sind voneinander unabhängig.
 
 ## Fertig
@@ -96,10 +96,13 @@ Referenzkarte, bis zu drei unabhängige Karten, Farben/Icons/Nummern, Drag/Spin,
 reduzierte Bewegung, Popupausrichtung, Cache und Admin2-Einstellungsspeicherung.
 OSM und alle fünf Mapbox-Stile sind bestätigt. Versionsangaben stehen oben.
 
-Noch zu erledigen: GitHub verbinden, nativen Fork anlegen, Entwicklungsbranch
-übertragen und den finalen Commit als annotierten Tag v2.0.0-beta.5 markieren.
-Danach als Pre-release mit Voll-ZIP/tar.gz und SHA256-Prüfsummen veröffentlichen.
-Die Veröffentlichung erfolgt erst nach der abgestimmten schrittweisen Durchführung.
+Der native GitHub-Fork ist angelegt:
+https://github.com/olivernobbe/grav-leaflet-plugin-v2
+
+Veröffentlichungsziel ist der annotierte Tag v2.0.0-beta.5 und ein Pre-release mit
+Voll-ZIP/tar.gz und SHA256-Prüfsummen. Den tatsächlichen Veröffentlichungsstatus
+zeigt die [Release-Seite](https://github.com/olivernobbe/grav-leaflet-plugin-v2/releases).
+Fork, Tagging und Veröffentlichung sind vom Eigentümer ausdrücklich beauftragt.
 
 Keine pauschale Zertifizierung aller Browser, externen APIs oder Provider. V1 bleibt
 auf Benutzerwunsch deaktiviert und ist keine Rückfalllösung; für Updates wird der

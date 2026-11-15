@@ -1,6 +1,6 @@
 # Portierungsstand
 
-Aktueller Kandidat: **2.0.0-beta.4**, Branch `feat/grav2-leaflet2`.
+Aktueller Beta-Stand: **2.0.0-beta.5**, Branch `feat/grav2-leaflet2`.
 [Abnahme und Releasevorbereitung](BETA-RELEASE.md) ist der aktuelle Teststand.
 
 ## Ausgangspunkt und Kompatibilität
@@ -36,8 +36,8 @@ sechs Marker wurden inzwischen durch Benutzer bestätigt.
 
 Admin2-Blueprint nutzt einfache toggle/select/text-Felder. Doppelte bedingte
 preffered-Definitionen wurden entfernt; beide Provider-Key-Felder sind sichtbar.
-Providerindex bleibt numerisch. Anzeigen/Aktivieren des Plugins ist bestätigt;
-Speichern und Wiederöffnen der Providerkonfiguration noch explizit abnehmen.
+Providerindex bleibt numerisch. Anzeigen, Aktivieren, Speichern und erneutes Öffnen der Einstellungen wurden
+inzwischen vom Eigentümer bestätigt. Mapbox mit allen fünf Stilen ist live geprüft.
 
 ## Leaflet und eigene Assets
 
@@ -63,22 +63,22 @@ registriert; JS bleibt außerhalb der Grav-Konkatenationspipeline.
 | Option | Stand |
 |---|---|
 | lat/lng/zoom/scale | Referenz funktioniert auf Benutzerinstanz |
-| mehrere Karten ohne mapname | lokal getestet; manuell offen |
+| mehrere Karten ohne mapname | lokal und mit drei Karten manuell bestätigt |
 | mapname/classes/width/height | implementiert; Theme-Maße manuell prüfen |
-| 20 Markerfarben | lokal zugeordnet; Palette manuell offen |
+| 20 Markerfarben | lokal zugeordnet; Palette manuell bestätigt |
 | icon/iconColor/text, 0 und 1–5 | lokal geprüft, Referenzmarker manuell bestätigt |
-| title | Hover und Klartext-Klick-Popup; neue Ausrichtung noch manuell bestätigen |
-| draggable/spin/Gruppenicon | implementiert; Interaktion manuell offen |
+| title | Hover und Klartext-Klick-Popup; korrigierte Ausrichtung manuell bestätigt |
+| draggable/spin/Gruppenicon | Interaktion und reduzierte Bewegung manuell bestätigt |
 | variant/style/preffered | erhalten; ungültige Variante fällt auf erste Vorgabe zurück |
 | Provider-/API-Key-Konfiguration | erhalten; OSM ist erste Abnahmebasis |
-| warmer Grav-Cache und Admin2-Speichern | noch explizit bestätigen |
+| warmer Grav-Cache und Admin2-Speichern | manuell bestätigt |
 
 ## Testgrenzen und Betrieb
 
 Lokal kein PHP/Composer und kein laufender Docker-Daemon. PHP wurde statisch,
 Browsercode mit Chromium geprüft; tatsächliche Grav-Ausführung erfolgt manuell
-beim Benutzer. PHP-Version laut Testcontainerlog 8.3.36. Genaue übrige Versionen
-noch erfassen. Keine Coolify-/Backendzugriffe durch den Entwickler.
+beim Benutzer. PHP-Version laut Testcontainerlog 8.3.36. Weitere Benutzerausgabe: Grav CLI 2.2.29, Shortcode Core 6.2.8,
+Admin2 2.2.13 und API 1.1.18. Keine Coolify-/Backendzugriffe durch den Entwickler.
 
 Bind-Mount-Rechte wurden beim Benutzer für config/accounts/data/pages korrigiert;
 SFTP-Benutzer darf den V2-Pluginordner schreiben. Probleme beim Beitragsspeichern

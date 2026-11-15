@@ -1,3 +1,9 @@
+> Historische Übergabe vor der GitHub-Veröffentlichung. Der Connector ist inzwischen
+> verfügbar, das verbundene Konto ist olivernobbe und der native Fork wurde unter
+> https://github.com/olivernobbe/grav-leaflet-plugin-v2 angelegt. Aktuellen Status
+> über Git-Remotes und die GitHub-Release-Seite prüfen. Die folgenden Angaben zum
+> damaligen Verbindungsstatus sind keine Aufforderung zur erneuten Anmeldung.
+
 # Übergabe: GitHub-Fork und erste Beta veröffentlichen
 
 ## Auftrag und Autorisierung

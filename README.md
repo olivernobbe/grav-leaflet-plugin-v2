@@ -1,6 +1,6 @@
 # Map Marker Leaflet V2
 
-Grav 2 / Admin2 development plugin, version **2.0.0-beta.5**, Leaflet **2.0.0-beta.4**.
+Grav 2 / Admin2 beta plugin, version **2.0.0-beta.5**, Leaflet **2.0.0-beta.4**.
 
 ## Installation auf der Testinstanz
 
@@ -86,7 +86,9 @@ Siehe [Abnahme](docs/COOLIFY-ABNAHME.md) und [Portierungsstand](docs/PORTIERUNG.
 Der Repositoryname für Forgejo und GitHub lautet **grav-leaflet-plugin-v2**.
 
 - [Forgejo-Repository](https://git.nobbe.eu/OliverNobbe/grav-leaflet-plugin-v2) (privat)
-- Ein nativer GitHub-Fork ist vorgesehen; dessen Adresse wird nach dem Anlegen ergänzt.
+- [GitHub-Fork](https://github.com/olivernobbe/grav-leaflet-plugin-v2) (öffentlich)
+- [GitHub-Releases und Installationspakete](https://github.com/olivernobbe/grav-leaflet-plugin-v2/releases)
+- [Fehler und Verbesserungsvorschläge](https://github.com/olivernobbe/grav-leaflet-plugin-v2/issues)
 
 Der Installationsordner und Konfigurationsschlüssel bleiben **map-marker-leaflet-v2**.
 
