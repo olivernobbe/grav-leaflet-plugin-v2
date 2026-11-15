@@ -1,10 +1,10 @@
 # Map Marker Leaflet V2
 
-Grav 2 / Admin2 beta plugin, version **2.0.0-beta.5**, Leaflet **2.0.0-beta.4**.
+Grav 2 / Admin2 beta plugin, version **2.0.0-beta.13**, Leaflet **2.0.0-beta.4**.
 
 ## Installation auf der Testinstanz
 
-1. `map-marker-leaflet-v2-2.0.0-beta.5.zip` herunterladen und entpacken.
+1. `map-marker-leaflet-v2-2.0.0-beta.13.zip` herunterladen und entpacken.
 2. Den Ordner **map-marker-leaflet-v2** nach **user/plugins/** hochladen.
 3. Im Admin das Original **Map Marker Leaflet** deaktivieren, dann **Map Marker Leaflet V2** aktivieren.
 4. Grav-Cache im Admin leeren und die Kartenseite öffnen.
@@ -23,21 +23,28 @@ Die Shortcodes `[map-leaflet]` und `[a-markers]` bleiben unverändert. Bestehend
 Beiträge brauchen keine Anpassung. Die Referenz ist in `fixtures/brouwersdam.md`
 mit einer zweiten Karte enthalten; `fixtures/palette.md` enthält alle 20 Farben.
 
-## Update auf beta.5
+## Update auf beta.13
 
 Den Inhalt des vollständigen ZIPs oder des kleinen Update-ZIPs
-`map-marker-leaflet-v2-update-2.0.0-beta.5.zip` in den vorhandenen V2-Ordner
+`map-marker-leaflet-v2-update-2.0.0-beta.13.zip` in den vorhandenen V2-Ordner
 hochladen und vorhandene Dateien ersetzen; Unterordner zusammenführen.
 Die Benutzerkonfiguration außerhalb des Pluginordners beibehalten. Das Update-ZIP
 enthält neben JS/CSS auch PHP, Defaults und das Mapbox-Logo; deshalb vollständig
 hochladen, nicht nur eine einzelne JavaScriptdatei ersetzen.
 
-Danach Grav-Cache im Admin leeren und die Beitragsseite neu laden. Plugin-Code und
-CSS sind eindeutig nach dem Plugin benannt; der Bundle enthält unverändertes
-Leaflet und unseren eigenen Initialisierungscode. Leaflet-Quelldateien werden
-nicht editiert. Der Quell-Einstieg heißt `js/map-marker-leaflet-v2.js`.
+Danach Grav-Cache im Admin leeren und die Beitragsseite neu laden. Das Update
+begrenzt CARTO-Karten und Rasteranfragen auf Zoomstufe 18 und hebt OSMs Grenze
+auf Zoomstufe 19 an. Wikimedia Maps wird nicht mehr angeboten; eine alte
+Wikimedia-Auswahl wird auf OSM umgeleitet. Siehe
+[Beta-13-Änderungen](docs/RELEASE-v2.0.0-beta.13.md). Das Update
+ergänzt die Admin2-Variantenübersicht sowie die CARTO-Key-Einstellung und
+verwendet CARTOs dokumentierten Raster-Tilepfad. Alte eingebaute CARTO-URLs und
+Variantenwerte werden bei der Ausgabe kompatibel angepasst. Falls eine alte
+Konfiguration unter CARTO auf Wikimedia zeigt, fällt V2 auf die CARTO-Standard-URL
+zurück. Der CARTO-Key wird in
+der lokalen Plugin-Konfiguration gespeichert; diese bleibt erhalten.
 
-Siehe [Beta-Abnahme und Releasevorbereitung](docs/BETA-RELEASE.md).
+Siehe [Beta-9-Änderungen und Grav-Abnahme](docs/RELEASE-v2.0.0-beta.9.md).
 
 ## Optionen
 
@@ -58,10 +65,14 @@ globales `L`. Grav-Cache kann aktiv bleiben; JS wird als ES-Modul außerhalb der
 Grav-JS-Pipeline eingebunden. Providerdefinitionen einschließlich des historischen
 Schlüssels `preffered` bleiben erhalten. OpenStreetMap und alle fünf mitgelieferten
 Mapbox-Stile sind auf der Benutzerinstanz getestet; siehe [Mapbox-Test](docs/MAPBOX-TEST.md).
-Thunderforest, Carto und Wikimedia sind noch nicht abgenommen.
-
-Bekannter UI-Mangel: Das Variantenfeld zeigt allgemein 0–9. Mapbox verwendet nur
-0–4; 5–9 fallen auf Streets zurück. Eine Auswahl nach Stilnamen ist noch offen.
+Thunderforest und CARTO wurden vom Eigentümer getestet. Wikimedia Maps wird wegen
+der Nutzungsbedingungen nicht unterstützt. Für Thunderforest und CARTO ist jeweils
+ein eigener API-Key erforderlich.
+CARTO-Basemap-Keys können
+unter [carto.com/basemaps/apikey](https://carto.com/basemaps/apikey/) beantragt und
+auf die eigene Website beschränkt werden. Im Admin stehen die Standardvarianten
+mit ihren nullbasierten Indizes; eigene `providers.<anbieter>.variants`-Listen
+ändern diese Zuordnung.
 
 Siehe auch [Leaflet-2-Migrationsprüfung](docs/LEAFLET2-AUDIT.md).
 

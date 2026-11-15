@@ -1,5 +1,5 @@
 name: Map Marker Leaflet V2
-version: 2.0.0-beta.5
+version: 2.0.0-beta.13
 description: Grav 2 map shortcodes using Leaflet 2 ES modules and configurable markers
 icon: map
 author:
@@ -36,28 +36,26 @@ form:
                 thunderforest: Thunderforest
                 mapbox: Mapbox
                 carto: Carto
-                wikimedia: WikiMedia
             default: openstreetmap
         preffered:
-            type: select
+            type: number
             label: Provider variant index (legacy preffered)
-            help: Index in providers.<provider>.variants; shortcode variant overrides this selection.
+            help: Zero-based index in providers.<provider>.variants. The available variants depend on the selected provider configuration; shortcode variant overrides this setting.
             default: 0
-            options:
-                0: '0 (first variant)'
-                1: '1'
-                2: '2'
-                3: '3'
-                4: '4'
-                5: '5'
-                6: '6'
-                7: '7'
-                8: '8'
-                9: '9'
             validate:
                 type: int
                 min: 0
-                max: 9
+        variant_reference:
+            type: display
+            content: >
+                <p><strong>Standard variants (zero-based indices):</strong></p>
+                <ul>
+                <li>OpenStreetMap: one standard layer; no variant list.</li>
+                <li>Thunderforest: 0 cycle, 1 transport, 2 landscape, 3 outdoors, 4 transport-dark, 5 spinal-map, 6 pioneer, 7 mobile-atlas, 8 neighbourhood.</li>
+                <li>Mapbox: 0 Streets, 1 Outdoors, 2 Light, 3 Dark, 4 Satellite.</li>
+                <li>CARTO: 0 light_all, 1 light_nolabels, 2 dark_all, 3 dark_nolabels, 4 voyager, 5 voyager_nolabels, 6 voyager_labels_under.</li>
+                </ul>
+                <p>These are the plugin's built-in configuration values, not a guarantee that each style is currently available from its provider. Inherited or custom values in <code>providers.&lt;provider&gt;.variants</code> can change the index order.</p>
         providers.thunderforest.apikey:
             type: text
             label: Thunderforest API key
@@ -66,3 +64,7 @@ form:
             type: text
             label: Mapbox public access token
             help: Use a public pk. token. Variant indices 0 Streets, 1 Outdoors, 2 Light, 3 Dark, 4 Satellite.
+        providers.carto.apikey:
+            type: text
+            label: CARTO Basemaps API key
+            help: Required for CARTO basemaps. Sent to CARTO in tile requests; restrict it to your website's referrer in your CARTO dashboard.

@@ -1,6 +1,6 @@
 # Portierungsstand
 
-Aktueller Beta-Stand: **2.0.0-beta.5**, Branch `feat/grav2-leaflet2`.
+Aktueller Beta-Stand: **2.0.0-beta.13**, Branch `feat/grav2-leaflet2`.
 [Abnahme und Releasevorbereitung](BETA-RELEASE.md) ist der aktuelle Teststand.
 
 ## Ausgangspunkt und Kompatibilität
@@ -23,7 +23,7 @@ Schlüssel preffered sowie Providerdefinitionen bleiben kompatibel.
 Öffentlich ausgeliefertes Original zum Entwicklungsbeginn:
 https://www.avanti-unterwegs.de/de/blog/brouwersdam
 
-Bestätigt: Zentrum 51.7397/3.8715, Zoom 11, OSM/maxZoom 17, Maßstab,
+Bestätigt: Zentrum 51.7397/3.8715, Zoom 11, OSM/maxZoom 19, Maßstab,
 schwarzer Shuttle-Pin mit weißem FA-Icon und fünf grüne Nummernmarker.
 Font Awesome 7.0.1 wurde vom Theme geladen. Das Original setzte native title-
 Tooltips; auf Benutzerwunsch gibt es in V2 zusätzlich Klick-Popups.
@@ -34,10 +34,10 @@ PluginsInitialized / ThemeInitialized / onShortcodeHandlers und Registrierung
 bestätigt dieselbe Verzeichnisregistrierung. Tatsächliche Shortcodeausgabe und
 sechs Marker wurden inzwischen durch Benutzer bestätigt.
 
-Admin2-Blueprint nutzt einfache toggle/select/text-Felder. Doppelte bedingte
-preffered-Definitionen wurden entfernt; beide Provider-Key-Felder sind sichtbar.
-Providerindex bleibt numerisch. Anzeigen, Aktivieren, Speichern und erneutes Öffnen der Einstellungen wurden
-inzwischen vom Eigentümer bestätigt. Mapbox mit allen fünf Stilen ist live geprüft.
+Admin2-Blueprint nutzt toggle/select/number/text- und display-Felder. Doppelte bedingte
+preffered-Definitionen wurden entfernt; Providerindex ist ein nicht gedeckeltes
+Zahlenfeld mit Referenz der eingebauten Varianten. Einstellungen lassen sich anzeigen,
+speichern und erneut öffnen. Mapbox mit allen fünf Stilen ist live geprüft.
 
 ## Leaflet und eigene Assets
 
@@ -70,7 +70,7 @@ registriert; JS bleibt außerhalb der Grav-Konkatenationspipeline.
 | title | Hover und Klartext-Klick-Popup; korrigierte Ausrichtung manuell bestätigt |
 | draggable/spin/Gruppenicon | Interaktion und reduzierte Bewegung manuell bestätigt |
 | variant/style/preffered | erhalten; ungültige Variante fällt auf erste Vorgabe zurück |
-| Provider-/API-Key-Konfiguration | erhalten; OSM ist erste Abnahmebasis |
+| Provider-/API-Key-Konfiguration | OSM, Mapbox und Thunderforest live bestätigt; CARTO Zoomdarstellung noch offen |
 | warmer Grav-Cache und Admin2-Speichern | manuell bestätigt |
 
 ## Testgrenzen und Betrieb

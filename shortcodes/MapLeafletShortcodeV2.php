@@ -14,13 +14,38 @@ class MapLeafletShortcodeV2 extends Shortcode
             }
             unset($value);
             $config = $this->config->get('plugins.map-marker-leaflet-v2', []);
-            $provider = $config['providers'][$config['provider'] ?? 'openstreetmap'] ?? [];
+            $providerName = $config['provider'] ?? 'openstreetmap';
+            // Wikimedia Maps terms prohibit unrelated third-party map usage.
+            // Redirect legacy saved selections to the supported OSM standard layer.
+            if ($providerName === 'wikimedia') $providerName = 'openstreetmap';
+            $provider = $config['providers'][$providerName] ?? [];
             $variants = $provider['variants'] ?? [];
             $variant = $params['variant'] ?? $params['style'] ?? $variants[$config['preffered'] ?? 0] ?? $provider['default'] ?? '';
+            $tileStanza = $provider['tilestanza'] ?? 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+            // A legacy config can contain another provider's URL under Carto.
+            // Do not send a Carto selection to Wikimedia; fall back to Carto's
+            // built-in raster endpoint while retaining the selected variant/key.
+            if ($providerName === 'carto' && str_contains($tileStanza, 'maps.wikimedia.org/')) {
+                $tileStanza = 'https://basemaps.cartocdn.com/rastertiles/{variant}/{z}/{x}/{y}{r}.png?key={apikey}';
+            }
+            $cartoOldTemplate = 'https://{s}.basemaps.cartocdn.com/{variant}/';
+            $cartoNewTemplate = 'https://basemaps.cartocdn.com/rastertiles/{variant}/';
+            if ($providerName === 'carto' && str_starts_with($tileStanza, $cartoOldTemplate)) {
+                $tileStanza = $cartoNewTemplate . substr($tileStanza, strlen($cartoOldTemplate));
+            }
+            if ($providerName === 'carto' && str_starts_with($tileStanza, $cartoNewTemplate)) {
+                $normalizeCartoVariant = static function ($value) {
+                    return is_string($value) && str_starts_with($value, 'rastertiles/')
+                        ? substr($value, strlen('rastertiles/'))
+                        : $value;
+                };
+                $variant = $normalizeCartoVariant($variant);
+                $variants = array_map($normalizeCartoVariant, $variants);
+            }
             $validVariant = in_array($variant, $variants, true);
             // Both old blog aliases and modern style IDs remain usable even
             // when the inherited provider list still contains the other form.
-            if (($config['provider'] ?? '') === 'mapbox') {
+            if ($providerName === 'mapbox') {
                 $aliases = [
                     'mapbox.streets' => 'mapbox/streets-v12',
                     'mapbox.outdoors' => 'mapbox/outdoors-v12',
@@ -32,6 +57,11 @@ class MapLeafletShortcodeV2 extends Shortcode
                 $validVariant = in_array($normalize($variant), array_map($normalize, $variants), true);
             }
             if ($variants && !$validVariant) $variant = $provider['default'] ?? reset($variants);
+            if ($providerName === 'carto'
+                && str_contains($tileStanza, 'basemaps.cartocdn.com')
+                && !preg_match('/[?&]key=/i', $tileStanza)) {
+                $tileStanza .= str_contains($tileStanza, '?') ? '&key={apikey}' : '?key={apikey}';
+            }
             $number = static function ($value, $default, $min, $max) {
                 return is_numeric($value) && is_finite((float)$value) ? max($min, min($max, (float)$value)) : $default;
             };
@@ -41,11 +71,11 @@ class MapLeafletShortcodeV2 extends Shortcode
                 'zoom' => $number($params['zoom'] ?? null, 13, 0, 24),
                 'scale' => array_key_exists('scale', $params) && ($params['scale'] === '' || $params['scale'] === null || filter_var($params['scale'], FILTER_VALIDATE_BOOLEAN)),
                 'provider' => [
-                    'name' => $config['provider'] ?? 'openstreetmap',
-                    'tilestanza' => $provider['tilestanza'] ?? 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                    'name' => $providerName,
+                    'tilestanza' => $tileStanza,
                     'options' => [
                         'attribution' => $provider['attribution'] ?? '&copy; OpenStreetMap contributors',
-                        'maxZoom' => $number($provider['maxzoom'] ?? null, 17, 0, 24),
+                        'maxZoom' => $number($provider['maxzoom'] ?? null, 19, 0, 24),
                         'apikey' => $provider['apikey'] ?? $config['apikey'] ?? '',
                         'variant' => $variant
                     ]

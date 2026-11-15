@@ -23,3 +23,20 @@ test('Mapbox: legacy styles upgrade; 512px tiles align; custom URLs stay intact'
  const osm={tilestanza:'https://tile.openstreetmap.org/{z}/{x}/{y}.png',options:{maxZoom:17}};
  assert.deepEqual(prepareProvider(osm),{url:osm.tilestanza,options:osm.options,isMapbox:false});
 });
+
+test('CARTO raster: stop map and tile requests at zoom 18',()=>{
+ const carto={name:'carto',tilestanza:'https://basemaps.cartocdn.com/rastertiles/{variant}/{z}/{x}/{y}.png?key={apikey}',options:{variant:'voyager',apikey:'test',maxZoom:20}};
+ const result=prepareProvider(carto);
+ assert.equal(result.options.maxNativeZoom,18);
+ assert.equal(result.options.maxZoom,18);
+ assert.equal(result.mapMaxZoom,18);
+ assert.match(result.url,/rastertiles\/\{variant\}/);
+});
+
+test('standard OpenStreetMap: cap map and tile requests at zoom 19',()=>{
+ const osm={name:'openstreetmap',tilestanza:'https://tile.openstreetmap.org/{z}/{x}/{y}.png',options:{maxZoom:17}};
+ const result=prepareProvider(osm);
+ assert.equal(result.options.maxNativeZoom,19);
+ assert.equal(result.options.maxZoom,19);
+ assert.equal(result.mapMaxZoom,19);
+});

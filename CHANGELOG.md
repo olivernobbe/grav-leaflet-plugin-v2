@@ -1,3 +1,52 @@
+# 2.0.0-beta.13 (2026-11-15)
+
+- Remove Wikimedia Maps as a selectable provider because its terms prohibit unrelated third-party map use.
+- Redirect a legacy saved Wikimedia provider selection to standard OpenStreetMap.
+
+# 2.0.0-beta.12 (2026-11-15)
+
+- Set the standard OpenStreetMap raster map and tile layer maximum to zoom 19.
+- Raise the OpenStreetMap default from zoom 17; keep CARTO capped at zoom 18.
+
+# 2.0.0-beta.11 (2026-11-15)
+
+- Limit CARTO raster maps and tile requests to zoom 18, the maximum confirmed for the Basemaps key.
+- Prevent further zooming rather than enlarging zoom-18 tiles above the provider's limit.
+
+# 2.0.0-beta.10 (2026-11-15)
+
+- Cap CARTO raster tile requests at zoom 18, as confirmed by the service response for the account's Basemaps key.
+- Continue allowing map zoom to 24 by scaling zoom-18 tiles above the provider limit.
+
+# 2.0.0-beta.9 (2026-11-15)
+
+- Set CARTO's configured raster limit as `maxNativeZoom` and allow closer map zooms.
+- Scale the last available CARTO tile above its native limit instead of showing gray.
+- Add a provider regression test for the CARTO zoom options.
+- Record owner-confirmed Thunderforest acceptance; CARTO zoom acceptance remains pending.
+
+# 2.0.0-beta.8 (2026-11-15)
+
+- Fix Carto selection using an inherited Wikimedia tile URL.
+- Use CARTO's built-in raster endpoint for this cross-provider mismatch.
+- Preserve the selected CARTO style and local API key.
+
+# 2.0.0-beta.7 (2026-11-15)
+
+- Use CARTO's documented `/rastertiles/{variant}` endpoint and seven current raster variants.
+- Convert the previous built-in CARTO URL and `rastertiles/` variant aliases when inherited from V1 or beta.6.
+- Retain the CARTO key query parameter and local Admin2 key field.
+- CARTO live acceptance remains pending.
+
+# 2.0.0-beta.6 (2026-11-15)
+
+- Replace the fixed provider variant dropdown with a non-negative numeric index.
+- Show the configured default variant order for each map provider in Admin2.
+- Add the CARTO Basemaps API key setting and pass it to raster tile requests.
+- Append the key parameter to inherited CARTO URLs that predate keyed requests.
+- Keep provider variants and API keys in local configuration; no credentials in the repository.
+- CARTO, Thunderforest and Wikimedia still require manual provider acceptance.
+
 # 2.0.0-beta.5 (2026-11-15)
 
 - Modernize built-in Mapbox styles using Static Tiles API and 512px tiles.

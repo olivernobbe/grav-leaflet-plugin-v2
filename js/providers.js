@@ -25,5 +25,20 @@ export function prepareProvider(provider) {
     }
     options.maxZoom = Math.min(Number(options.maxZoom) || 22, 22);
   }
-  return {url, options, isMapbox};
+  if (provider.name === 'openstreetmap' && url.includes('tile.openstreetmap.org/')) {
+    // The standard OSM layer is configured through z19. Keep the view and
+    // raster requests within that native tile range.
+    options.maxNativeZoom = 19;
+    options.maxZoom = 19;
+  }
+  if (provider.name === 'carto' && url.includes('basemaps.cartocdn.com')) {
+    // CARTO confirmed raster tile requests are available through z18 for this
+    // key. Stop the map there instead of scaling tiles or showing gray space.
+    options.maxNativeZoom = 18;
+    options.maxZoom = 18;
+  }
+  const mapMaxZoom = provider.name === 'carto' && url.includes('basemaps.cartocdn.com') ? 18
+    : provider.name === 'openstreetmap' && url.includes('tile.openstreetmap.org/') ? 19
+      : undefined;
+  return {url, options, isMapbox, mapMaxZoom};
 }

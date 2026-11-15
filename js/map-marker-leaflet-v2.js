@@ -76,8 +76,8 @@ export function initializeMaps(root = document) {
     let map;
     try {
       const data = JSON.parse(payload.textContent);
-      map = new LeafletMap(element).setView([data.lat,data.lng],data.zoom);
       const provider = prepareProvider(data.provider);
+      map = new LeafletMap(element, provider.mapMaxZoom ? {maxZoom:provider.mapMaxZoom} : {}).setView([data.lat,data.lng],data.zoom);
       if (provider.isMapbox && String(provider.options.apikey || '').startsWith('sk.')) {
         throw new Error('Mapbox requires a public pk. token, not a secret token.');
       }
