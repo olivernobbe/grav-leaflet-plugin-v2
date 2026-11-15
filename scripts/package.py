@@ -31,7 +31,9 @@ print(zip_output)
 update_output = output.with_name(f'map-marker-leaflet-v2-update-{version}.zip')
 with zipfile.ZipFile(update_output, 'w', zipfile.ZIP_DEFLATED) as archive:
     for name in ['map-marker-leaflet-v2.php', 'blueprints.yaml',
-                 'assets/map-marker-leaflet-v2.js', 'assets/map-marker-leaflet-v2.css']:
+                 'assets/map-marker-leaflet-v2.js', 'assets/map-marker-leaflet-v2.css',
+                 'assets/MAPBOX-ATTRIBUTION.txt', 'defaults.yaml',
+                 'shortcodes/MapLeafletShortcodeV2.php'] + [p.relative_to(root).as_posix() for p in sorted((root / 'assets/images').glob('mapbox-logo-*.svg'))]:
         archive.write(root / name, name)
 print(update_output)
 checksums = output.with_name(f'map-marker-leaflet-v2-{version}-SHA256SUMS.txt')

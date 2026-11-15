@@ -54,3 +54,10 @@
 .mml-spin { animation: mml-spin 2s linear infinite; display: inline-block; }
 @keyframes mml-spin { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .mml-spin { animation: none; } }
+.mml-map .mml-mapbox-logo {
+  display: block;
+  background: #fff;
+  padding: 3px;
+  line-height: 0;
+}
+.mml-map .mml-mapbox-logo img { display: block; width: 81px; height: 20px; max-width: none; filter: none; }

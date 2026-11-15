@@ -17,7 +17,21 @@ class MapLeafletShortcodeV2 extends Shortcode
             $provider = $config['providers'][$config['provider'] ?? 'openstreetmap'] ?? [];
             $variants = $provider['variants'] ?? [];
             $variant = $params['variant'] ?? $params['style'] ?? $variants[$config['preffered'] ?? 0] ?? $provider['default'] ?? '';
-            if ($variants && !in_array($variant, $variants, true)) $variant = $provider['default'] ?? reset($variants);
+            $validVariant = in_array($variant, $variants, true);
+            // Both old blog aliases and modern style IDs remain usable even
+            // when the inherited provider list still contains the other form.
+            if (($config['provider'] ?? '') === 'mapbox') {
+                $aliases = [
+                    'mapbox.streets' => 'mapbox/streets-v12',
+                    'mapbox.outdoors' => 'mapbox/outdoors-v12',
+                    'mapbox.light' => 'mapbox/light-v11',
+                    'mapbox.dark' => 'mapbox/dark-v11',
+                    'mapbox.satellite' => 'mapbox/satellite-v9'
+                ];
+                $normalize = static function ($value) use ($aliases) { return $aliases[$value] ?? $value; };
+                $validVariant = in_array($normalize($variant), array_map($normalize, $variants), true);
+            }
+            if ($variants && !$validVariant) $variant = $provider['default'] ?? reset($variants);
             $number = static function ($value, $default, $min, $max) {
                 return is_numeric($value) && is_finite((float)$value) ? max($min, min($max, (float)$value)) : $default;
             };
@@ -27,6 +41,7 @@ class MapLeafletShortcodeV2 extends Shortcode
                 'zoom' => $number($params['zoom'] ?? null, 13, 0, 24),
                 'scale' => array_key_exists('scale', $params) && ($params['scale'] === '' || $params['scale'] === null || filter_var($params['scale'], FILTER_VALIDATE_BOOLEAN)),
                 'provider' => [
+                    'name' => $config['provider'] ?? 'openstreetmap',
                     'tilestanza' => $provider['tilestanza'] ?? 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                     'options' => [
                         'attribution' => $provider['attribution'] ?? '&copy; OpenStreetMap contributors',

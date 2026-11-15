@@ -1,5 +1,5 @@
 name: Map Marker Leaflet V2
-version: 2.0.0-beta.4
+version: 2.0.0-beta.5
 description: Grav 2 map shortcodes using Leaflet 2 ES modules and configurable markers
 icon: map
 author:
@@ -64,5 +64,5 @@ form:
             help: Stored only in your local plugin configuration. Sent to the tile provider by the browser.
         providers.mapbox.apikey:
             type: text
-            label: Mapbox API key
-            help: Legacy tile URL may require updating for your account.
+            label: Mapbox public access token
+            help: Use a public pk. token. Variant indices 0 Streets, 1 Outdoors, 2 Light, 3 Dark, 4 Satellite.

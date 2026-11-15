@@ -13,11 +13,15 @@ const settings = {lat:51.7397,lng:3.8715,zoom:11,scale:true,provider:{tilestanza
 const theme = `<style>[role=button]{box-sizing:border-box;padding:12px 20px;border:1px solid purple;border-radius:4px;background:purple;line-height:24px;transition:all .2s}[role=button]:focus{box-shadow:0 0 0 3px #8428df66}</style>`;
 const html = `<link rel="stylesheet" href="/assets/map-marker-leaflet-v2.css">${theme}<div class="mml-map" style="height:530px"><script type="application/json">${JSON.stringify(settings)}</script><script type="application/json" class="mml-marker-data">${JSON.stringify(markers)}</script></div><div class="mml-map" style="height:300px"><script type="application/json">${JSON.stringify({...settings,lat:51,lng:3})}</script><script type="application/json" class="mml-marker-data">${JSON.stringify([{lat:51,lng:3,text:0,markerColor:'red',draggable:true,title:'<img src=x onerror=alert(1)>'}])}</script></div><script type="module" src="/assets/map-marker-leaflet-v2.js"></script>`;
 
+const mapboxSettings = {...settings,provider:{name:'mapbox',tilestanza:'https://api.tiles.mapbox.com/v4/{variant}/{z}/{x}/{y}.png?access_token={apikey}',options:{maxZoom:24,variant:'mapbox.streets',apikey:'pk.test-placeholder'}}};
+const mapboxHTML=`<link rel="stylesheet" href="/assets/map-marker-leaflet-v2.css"><div class="mml-map" style="height:530px"><script type="application/json">${JSON.stringify(mapboxSettings)}</script><script type="application/json" class="mml-marker-data">${JSON.stringify(markers)}</script></div><script type="module" src="/assets/map-marker-leaflet-v2.js"></script>`;
+
 test('bundled Leaflet 2: reference, independent maps, colors, icons, text, repeated cached HTML', async () => {
  const server = createServer(async (req,res) => {
-   if (req.url === '/') {res.setHeader('Content-Type','text/html');res.end(html);return;}
+   if (req.url === '/') {res.setHeader('Content-Type','text/html; charset=utf-8');res.end(html);return;}
+   if (req.url === '/mapbox') {res.setHeader('Content-Type','text/html; charset=utf-8');res.end(mapboxHTML);return;}
    if (!/^\/assets\/[a-zA-Z0-9./_-]+$/.test(req.url)) {res.writeHead(404).end();return;}
-   try {res.setHeader('Content-Type',req.url.endsWith('.css')?'text/css':'text/javascript');res.end(await readFile(new URL('..'+req.url,import.meta.url)));} catch {res.writeHead(404).end();}
+   try {res.setHeader('Content-Type',req.url.endsWith('.svg')?'image/svg+xml':req.url.endsWith('.css')?'text/css':'text/javascript');res.end(await readFile(new URL('..'+req.url,import.meta.url)));} catch {res.writeHead(404).end();}
  });
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
  let browser;
@@ -91,6 +95,27 @@ test('bundled Leaflet 2: reference, independent maps, colors, icons, text, repea
    await touch.locator('.mml-map').nth(0).locator('[title="Brouwersdam"]').tap();
    await expect(touch.locator('.leaflet-popup-content')).toHaveText('Brouwersdam');
    await touch.close();
+   const mapbox=await browser.newPage();
+   mapbox.on('pageerror',e=>errors.push(e.message));
+   mapbox.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
+   const tileURLs=[];
+   await mapbox.route('https://api.mapbox.com/**',route=>{
+     tileURLs.push(route.request().url());
+     return route.fulfill({contentType:'image/png',body:Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a6S8AAAAASUVORK5CYII=','base64')});
+   });
+   await mapbox.goto(`http://127.0.0.1:${server.address().port}/mapbox`);
+   await mapbox.waitForSelector('[data-mml-ready="true"]');
+   await expect(mapbox.locator('.mml-mapbox-logo img')).toBeVisible();
+   await expect.poll(()=>mapbox.locator('.mml-mapbox-logo img').evaluate(img=>img.complete && img.naturalWidth>0)).toBe(true);
+   await expect.poll(()=>tileURLs.length).toBeGreaterThan(0);
+   assert.ok(tileURLs.every(url=>url.includes('/styles/v1/mapbox/streets-v12/tiles/512/10/')));
+   assert.equal(await mapbox.locator('.leaflet-tile').first().evaluate(tile=>tile.style.width),'512px');
+   assert.equal(await mapbox.locator('.mml-marker').count(),6);
+   await mapbox.locator('[title="Brouwersdam"]').click();
+   await expect(mapbox.locator('.leaflet-popup-content')).toHaveText('Brouwersdam');
+   assert.match(await mapbox.locator('.mml-mapbox-feedback').getAttribute('href'),/feedback\/#\//);
+   if (process.env.MML_SCREENSHOT) await mapbox.screenshot({path:process.env.MML_SCREENSHOT.replace('.png','-mapbox.png'),fullPage:true});
+   await mapbox.close();
    const values = await page.evaluate(async()=>{
      const m=await import('/assets/map-marker-leaflet-v2.js');
      return Object.keys(m.colors).map(markerColor=>{

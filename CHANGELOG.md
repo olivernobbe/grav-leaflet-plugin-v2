@@ -1,3 +1,12 @@
+# 2.0.0-beta.5 (release candidate, unpublished)
+
+- Modernize built-in Mapbox styles using Static Tiles API and 512px tiles.
+- Preserve legacy style aliases and custom Raster Tiles API URLs.
+- Add Mapbox logo and required attribution, with feedback link following the view.
+- Use module-relative logo URL; include all required files in the beta.5 update ZIP.
+- Reject secret sk. tokens in browser-side Mapbox initialization.
+- Offline provider/browser tests pass; account-backed Mapbox acceptance pending.
+
 # 2.0.0-beta.4 (release candidate, unpublished)
 
 - Isolate custom marker layout from theme button padding, borders and focus shadows.

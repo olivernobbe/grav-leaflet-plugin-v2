@@ -24,15 +24,15 @@ providers:
       - neighbourhood
     maxzoom: 18
   mapbox:
-    tilestanza: 'https://api.tiles.mapbox.com/v4/{variant}/{z}/{x}/{y}.png?access_token={apikey}'
-    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap contributors</a>, Imagery &copy; <a href="https://www.mapbox.com/">Mapbox</a>'
+    tilestanza: 'https://api.mapbox.com/styles/v1/{variant}/tiles/512/{z}/{x}/{y}?access_token={apikey}'
+    attribution: '&copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     variants:
-      - mapbox.streets
-      - mapbox.outdoors
-      - mapbox.light
-      - mapbox.dark
-      - mapbox.satellite
-    maxzoom: 24
+      - mapbox/streets-v12
+      - mapbox/outdoors-v12
+      - mapbox/light-v11
+      - mapbox/dark-v11
+      - mapbox/satellite-v9
+    maxzoom: 22
   carto:
     tilestanza: 'https://{s}.basemaps.cartocdn.com/{variant}/{z}/{x}/{y}{r}.png'
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap contributors</a>, Imagery &copy; <a href="https://carto.com/attributions">Carto</a>'

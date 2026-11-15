@@ -1,0 +1,4 @@
+Mapbox logo: unmodified SVG supplied in the official attribution example.
+Source: https://docs.mapbox.com/help/dive-deeper/attribution/
+Mapbox wordmark and logo remain Mapbox trademarks; the plugin MIT license does not grant trademark rights.
+Included solely as attribution for maps rendered from Mapbox services.

@@ -1,6 +1,8 @@
-import {LeafletMap, TileLayer, Marker, DivIcon, ScaleControl} from 'leaflet';
+import {LeafletMap, TileLayer, Marker, DivIcon, ScaleControl, Control, DomEvent} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import './markers.css';
+import {prepareProvider} from './providers.js';
+import mapboxLogo from './mapbox-logo.svg';
 
 export const colors = {red:'#d63e2a',orange:'#f69730',green:'#72b026',blue:'#38aadd',purple:'#d252b9',darkred:'#a23336',darkblue:'#005a8b',darkgreen:'#728224',darkpurple:'#5b396b',cadetblue:'#436978',lightred:'#ff8e7f',beige:'#ffcb92',lightgreen:'#bbf970',lightblue:'#8adaff',pink:'#ff91ea',salmon:'#ff8a80',white:'#fff',lightgray:'#ddd',gray:'#575757',black:'#303030'};
 export function markerIcon(data) {
@@ -34,6 +36,37 @@ export function markerIcon(data) {
   body.append(content);
   return new DivIcon({html:body,className:'mml-marker',iconSize:[32,42],iconAnchor:[16,42],popupAnchor:[0,-42]});
 }
+function mapboxCredits(map, variant, attribution) {
+  const control = new Control({position:'bottomleft'});
+  control.onAdd = () => {
+    const link = document.createElement('a');
+    link.className = 'mml-mapbox-logo';
+    link.href = 'https://www.mapbox.com/';
+    link.target = '_blank';
+    link.rel = 'noopener';
+    const logo = document.createElement('img');
+    logo.src = new URL(mapboxLogo, import.meta.url).href;
+    logo.alt = 'Mapbox';
+    logo.width = 81;
+    logo.height = 20;
+    link.append(logo);
+    DomEvent.disableClickPropagation(link);
+    return link;
+  };
+  control.addTo(map);
+  if (!String(attribution).includes('mapbox.com')) map.attributionControl.addAttribution('&copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a>');
+  if (!String(attribution).includes('openstreetmap.org')) map.attributionControl.addAttribution('&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>');
+  if (String(variant).includes('satellite')) map.attributionControl.addAttribution('&copy; <a href="https://www.maxar.com/">Maxar</a>');
+  const feedback = ' <a class="mml-mapbox-feedback" href="https://apps.mapbox.com/feedback/" target="_blank" rel="noopener">Improve this map</a>';
+  map.attributionControl.addAttribution(feedback);
+  const update = () => {
+    const center = map.getCenter();
+    map.getContainer().querySelector('.mml-mapbox-feedback').href =
+      `https://apps.mapbox.com/feedback/#/${center.lng}/${center.lat}/${map.getZoom()}`;
+  };
+  map.on('moveend',update);
+  update();
+}
 const maps = new WeakMap();
 export function initializeMaps(root = document) {
   for (const element of root.querySelectorAll('.mml-map')) {
@@ -44,7 +77,12 @@ export function initializeMaps(root = document) {
     try {
       const data = JSON.parse(payload.textContent);
       map = new LeafletMap(element).setView([data.lat,data.lng],data.zoom);
-      new TileLayer(data.provider.tilestanza, data.provider.options).addTo(map);
+      const provider = prepareProvider(data.provider);
+      if (provider.isMapbox && String(provider.options.apikey || '').startsWith('sk.')) {
+        throw new Error('Mapbox requires a public pk. token, not a secret token.');
+      }
+      new TileLayer(provider.url, provider.options).addTo(map);
+      if (provider.isMapbox) mapboxCredits(map, provider.options.variant, provider.options.attribution);
       if (data.scale) new ScaleControl().addTo(map);
       for (const group of element.querySelectorAll('.mml-marker-data')) {
         for (const marker of JSON.parse(group.textContent)) {

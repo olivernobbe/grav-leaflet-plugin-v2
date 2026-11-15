@@ -1,16 +1,18 @@
 # Map Marker Leaflet V2
 
-Grav 2 / Admin2 development plugin, version **2.0.0-beta.4**, Leaflet **2.0.0-beta.4**.
+Grav 2 / Admin2 development plugin, version **2.0.0-beta.5**, Leaflet **2.0.0-beta.4**.
 
 ## Installation auf der Testinstanz
 
-1. `map-marker-leaflet-v2-2.0.0-beta.4.zip` herunterladen und entpacken.
+1. `map-marker-leaflet-v2-2.0.0-beta.5.zip` herunterladen und entpacken.
 2. Den Ordner **map-marker-leaflet-v2** nach **user/plugins/** hochladen.
 3. Im Admin das Original **Map Marker Leaflet** deaktivieren, dann **Map Marker Leaflet V2** aktivieren.
 4. Grav-Cache im Admin leeren und die Kartenseite öffnen.
 
 Kein Terminal, npm oder Build nötig. Das Original bleibt als eigener Ordner erhalten.
-Zum Rückbau V2 deaktivieren, Original aktivieren und Cache leeren.
+Das Original bleibt deaktiviert: Der Eigentümer bewertet V1 unter Grav 2 nicht als
+verlässliche Rückfalllösung. Vor zukünftigen Updates den funktionierenden V2-Ordner
+und die eigene Plugin-Konfiguration sichern.
 Die ursprüngliche Konfiguration `user/config/plugins/map-marker-leaflet.yaml` bleibt
 unverändert. V2 liest deren Karten-/Provideroptionen als Vorgabe. Nach dem Speichern
 von V2-Einstellungen stehen eigene Werte in `user/config/plugins/map-marker-leaflet-v2.yaml`.
@@ -21,17 +23,14 @@ Die Shortcodes `[map-leaflet]` und `[a-markers]` bleiben unverändert. Bestehend
 Beiträge brauchen keine Anpassung. Die Referenz ist in `fixtures/brouwersdam.md`
 mit einer zweiten Karte enthalten; `fixtures/palette.md` enthält alle 20 Farben.
 
-## Update von beta.2 / beta.3
+## Update auf beta.5
 
-Am einfachsten den Inhalt des neuen ZIPs in den vorhandenen V2-Ordner hochladen
-und vorhandene Dateien ersetzen; Benutzerkonfiguration außerhalb des Pluginordners
-beibehalten. Für ein kleines Update enthält `map-marker-leaflet-v2-update-2.0.0-beta.4.zip`
-nur diese vier Dateien (innerhalb des bestehenden Pluginordners ersetzen):
-
-- `map-marker-leaflet-v2.php`
-- `blueprints.yaml`
-- `assets/map-marker-leaflet-v2.js`
-- `assets/map-marker-leaflet-v2.css`
+Den Inhalt des vollständigen ZIPs oder des kleinen Update-ZIPs
+`map-marker-leaflet-v2-update-2.0.0-beta.5.zip` in den vorhandenen V2-Ordner
+hochladen und vorhandene Dateien ersetzen; Unterordner zusammenführen.
+Die Benutzerkonfiguration außerhalb des Pluginordners beibehalten. Das Update-ZIP
+enthält neben JS/CSS auch PHP, Defaults und das Mapbox-Logo; deshalb vollständig
+hochladen, nicht nur eine einzelne JavaScriptdatei ersetzen.
 
 Danach Grav-Cache im Admin leeren und die Beitragsseite neu laden. Plugin-Code und
 CSS sind eindeutig nach dem Plugin benannt; der Bundle enthält unverändertes
@@ -58,7 +57,8 @@ Das Theme muss die verwendete Iconfont laden, beispielsweise Font Awesome für
 globales `L`. Grav-Cache kann aktiv bleiben; JS wird als ES-Modul außerhalb der
 Grav-JS-Pipeline eingebunden. Providerdefinitionen einschließlich des historischen
 Schlüssels `preffered` bleiben erhalten; alte Mapbox-/Wikimedia-URLs sind nicht
-als funktionsfähig zertifiziert. Zunächst mit OpenStreetMap abnehmen.
+als funktionsfähig zertifiziert. Mapbox wird ab beta.5 separat modernisiert und
+getestet; siehe [Mapbox-Test](docs/MAPBOX-TEST.md). Zunächst mit OpenStreetMap abnehmen.
 
 Siehe auch [Leaflet-2-Migrationsprüfung](docs/LEAFLET2-AUDIT.md).
 

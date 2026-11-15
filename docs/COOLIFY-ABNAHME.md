@@ -31,10 +31,15 @@ Konfliktsperre. Es ist nach dem Upload standardmäßig deaktiviert.
 - Bei fehlenden Icons muss das Testtheme die passende Font-Awesome-Version laden.
 - Browserkonsole auf Fehler prüfen; Testinstanz und Browser/Pluginversionen notieren.
 
-## Rückbau
+## Rücksicherung und Umgang mit dem Original
 
-V2 im Admin deaktivieren, Original wieder aktivieren, Cache leeren. Der alte
-Pluginordner und dessen Konfiguration wurden nicht ersetzt.
+Die Umschaltung wurde manuell getestet. Der Eigentümer bewertet V1 unter Grav 2
+jedoch nicht als verlässliche Rückfalllösung. Das Original bleibt deshalb
+deaktiviert; es wurde keine Löschung beauftragt. Vor künftigen Updates den
+funktionierenden V2-Pluginordner und `user/config/plugins/map-marker-leaflet-v2.yaml`
+sichern. Die ursprüngliche Plugin-Konfiguration ebenfalls beibehalten.
+Bei einem fehlgeschlagenen V2-Update den gesicherten V2-Stand und gegebenenfalls
+dessen Konfiguration wiederherstellen, danach Grav-Cache leeren.
 
 ## Coolify-Persistenz
 
