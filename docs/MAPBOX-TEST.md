@@ -1,8 +1,15 @@
 # Mapbox-Abnahme ab Plugin 2.0.0-beta.5
 
-Noch nicht live abgenommen. Die bis beta.4 enthaltene Mapbox-Style-Konfiguration
-stammt aus dem Originalplugin. beta.5 verwendet für die bekannten Stile die
-Static Tiles API. Künftige Releases erst nach diesem zusätzlichen Test markieren.
+Der Eigentümer bestätigt den Live-Test mit eigenem Mapbox-Konto: Streets (Index 0)
+sowie Outdoors, Light, Dark und Satellite (Indizes 1–4) laden sauber. Nach dem
+Update auf beta.5 funktionieren auch die bisherigen OSM-Karten weiter.
+
+Getestete Umgebung laut Eigentümer: PHP 8.3.36, Grav CLI Application 2.2.29,
+Shortcode Core 6.2.8, Admin2 2.2.13 und API 1.1.18. Eine separate browserbezogene
+Mapbox-Testmatrix bzw. Prüfung einzelner HTTP-Header wurde nicht gemeldet.
+
+Die bis beta.4 enthaltene Style-Konfiguration stammt aus dem Originalplugin.
+beta.5 nutzt für diese bekannten Stile die Static Tiles API.
 
 ## Vorbereitet und offline geprüft
 
@@ -21,7 +28,14 @@ Static Tiles API. Künftige Releases erst nach diesem zusätzlichen Test markier
   die Kacheln werden lokal ersetzt. Unit-Test prüft alle fünf Stylepaare und
   unveränderte Custom-URLs. Kein echter Token benutzt, keine Live-Kosten ausgelöst.
 
-## Manuell schrittweise testen
+## Bekannte UI-Grenze
+
+Die gemeinsame Variantenliste zeigt weiterhin 0–9 an. Mapbox hat nur fünf
+vordefinierte Varianten (0–4); 5–9 fallen auf Streets zurück. Die anbieterabhängige
+Auswahl mit Stilnamen ist für eine spätere Verbesserung vorgesehen. Dies ist ein
+bekannter UI-Mangel, keine zusätzliche Mapbox-Stilunterstützung.
+
+## Schritte zur Wiederholung des Tests
 
 1. Funktionierenden V2-Pluginordner und eigene V2-Konfiguration vor dem Update
    sichern. Neues beta.5-Update-ZIP vollständig mit Unterordnern in den vorhandenen

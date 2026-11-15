@@ -56,9 +56,12 @@ Das Theme muss die verwendete Iconfont laden, beispielsweise Font Awesome für
 `fa-solid fa-van-shuttle`. Diese Schrift wird nicht mitgeliefert. Es gibt kein
 globales `L`. Grav-Cache kann aktiv bleiben; JS wird als ES-Modul außerhalb der
 Grav-JS-Pipeline eingebunden. Providerdefinitionen einschließlich des historischen
-Schlüssels `preffered` bleiben erhalten; alte Mapbox-/Wikimedia-URLs sind nicht
-als funktionsfähig zertifiziert. Mapbox wird ab beta.5 separat modernisiert und
-getestet; siehe [Mapbox-Test](docs/MAPBOX-TEST.md). Zunächst mit OpenStreetMap abnehmen.
+Schlüssels `preffered` bleiben erhalten. OpenStreetMap und alle fünf mitgelieferten
+Mapbox-Stile sind auf der Benutzerinstanz getestet; siehe [Mapbox-Test](docs/MAPBOX-TEST.md).
+Thunderforest, Carto und Wikimedia sind noch nicht abgenommen.
+
+Bekannter UI-Mangel: Das Variantenfeld zeigt allgemein 0–9. Mapbox verwendet nur
+0–4; 5–9 fallen auf Streets zurück. Eine Auswahl nach Stilnamen ist noch offen.
 
 Siehe auch [Leaflet-2-Migrationsprüfung](docs/LEAFLET2-AUDIT.md).
 
@@ -72,8 +75,10 @@ npm test
 python3 scripts/package.py
 ```
 
-Build und Browser-/Quellprüfungen lokal bestanden. Tatsächliche PHP-/Grav-Ausführung,
-warmer Grav-Cache und Anzeigen/Speichern in Admin2 sind noch manuell abzunehmen.
+Build und Browser-/Quellprüfungen lokal bestanden. Der Eigentümer bestätigt
+Kartenfunktionen, warmen Grav-Cache und Anzeigen/Speichern der Plugin-Einstellungen
+in Admin2. Umgebung: Grav CLI 2.2.29, PHP 8.3.36, Shortcode Core 6.2.8,
+Admin2 2.2.13, API 1.1.18. Safari-Mobiltest: iPhone 17 Pro Max, iOS 27.2.
 Siehe [Abnahme](docs/COOLIFY-ABNAHME.md) und [Portierungsstand](docs/PORTIERUNG.md).
 
 ## Repositories

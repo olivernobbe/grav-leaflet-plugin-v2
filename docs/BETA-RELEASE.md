@@ -25,13 +25,12 @@ Pluginversion und Leafletversion sind voneinander unabhängig.
   gezielter Rechtekorrektur wieder möglich. Versionen vom Eigentümer über CLI ermittelt: PHP 8.3.36, Grav CLI Application
   2.2.29, Shortcode Core 6.2.8, Admin2 2.2.13, API 1.1.18.
 
-## Mapbox vor Veröffentlichung zusätzlich testen
+## Abnahmeumfang der ersten Beta
 
-Der Eigentümer hat einen zusätzlichen Mapbox-Test beauftragt. beta.5 modernisiert
-dafür die Standard-Style-Anbindung (Static Tiles API, 512px, Zoomoffset -1,
-Logo/Attribution). Offline geprüft, live mit Benutzeraccount noch nicht abgenommen.
-Die bisherigen OSM-Abnahmen beziehen sich auf beta.4; nach Update kurzer OSM-
-Regressionstest und danach Mapbox-Test entsprechend MAPBOX-TEST.md.
+Der Eigentümer bestätigt Mapbox Streets (0) und alle vier weiteren vordefinierten
+Stile (1–4). OSM funktioniert nach dem beta.5-Update weiter. Umfang für den ersten
+Release: OpenStreetMap und Mapbox. Tests von Thunderforest, Carto und Wikimedia
+wurden ausdrücklich auf einen späteren Zeitpunkt verschoben.
 
 ## Update installieren
 
@@ -90,34 +89,28 @@ Leitfadens ab und trennt verwendete APIs, übernommene Standardwerte, ungenutzte
 Funktionen und ausstehende Gerätetests. Zusätzliche Browserprüfungen für Space,
 Tastatur-Drag, Touch-Tap und Tile-Referrer-Attribut bestehen.
 
-## Noch vor dem ersten Release abnehmen
+## Status vor Veröffentlichung
 
-1. Neues Update auf der Testinstanz: Popup-Spitze am angeklickten Pin, Nummer/Icon
-   sichtbar, kein versetzter violetter Buttonrahmen bei Mausklick. Per Tab weiterhin
-   sichtbarer Fokus und per Enter Popup. Firefox und Desktop-Safari prüfen; mobile
-   Safari-Rückmeldung siehe oben.
-2. `fixtures/brouwersdam.md` als temporäre Testseite: zwei Karten, Marker getrennt,
-   Nummer 0 ziehbar, Gruppenicon und spin. Palette über fixtures/palette.md prüfen.
-3. Grav-Cache eingeschaltet: nach Cacheleeren zweimal anonym erneut öffnen.
-   Beide Karten/Popups bleiben korrekt. Falls die Asset-Pipeline genutzt wird,
-   diese aktiviert prüfen; das ES-Modul bleibt davon ausgeschlossen.
-4. In Admin2 Provider-Einstellungen anzeigen, ändern, speichern, neu öffnen;
-   gespeicherten Wert bestätigen und OSM wiederherstellen. Beitrag mit Kartenblock
-   speichern und prüfen, dass der Quelltext unverändert enthalten bleibt.
-5. Versionsangaben sind erfasst: Grav CLI 2.2.29, PHP 8.3.36, Shortcode Core
-   6.2.8, Admin2 2.2.13 und API 1.1.18 (Benutzerausgabe).
-6. Umschaltung wurde bestätigt. Auf ausdrücklichen Benutzerwunsch ist V1 keine
-   Rückfalllösung unter Grav 2; das Original bleibt deaktiviert. Vor zukünftigen
-   Updates funktionierenden V2-Stand samt Konfiguration separat sichern.
+Die vereinbarten manuellen Funktionstests sind im genannten Umfang abgeschlossen:
+Referenzkarte, bis zu drei unabhängige Karten, Farben/Icons/Nummern, Drag/Spin,
+reduzierte Bewegung, Popupausrichtung, Cache und Admin2-Einstellungsspeicherung.
+OSM und alle fünf Mapbox-Stile sind bestätigt. Versionsangaben stehen oben.
 
-Diese Punkte sind manuelle Abnahme, keine Zugriffs-/Freigabeanforderung. Ein
-privates Forgejo-Repository kann bereits vorbereitet werden; der Kandidat sollte
-vor Abschluss dieser Checks nicht als vollständig abgenommen bezeichnet werden.
+Noch zu erledigen: GitHub verbinden, nativen Fork anlegen, Entwicklungsbranch
+übertragen und den finalen Commit als annotierten Tag v2.0.0-beta.5 markieren.
+Danach als Pre-release mit Voll-ZIP/tar.gz und SHA256-Prüfsummen veröffentlichen.
+Die Veröffentlichung erfolgt erst nach der abgestimmten schrittweisen Durchführung.
+
+Keine pauschale Zertifizierung aller Browser, externen APIs oder Provider. V1 bleibt
+auf Benutzerwunsch deaktiviert und ist keine Rückfalllösung; für Updates wird der
+funktionierende V2-Stand samt Konfiguration gesichert.
 
 ## Für die Beta dokumentierte Grenzen
 
-- Erste Provider-Abnahme mit OpenStreetMap. Thunderforest/Carto/Mapbox/Wikimedia
-  bleiben konfigurierbar, sind nicht live abgenommen; alte URLs ggf. anpassen.
+- OpenStreetMap und die fünf vordefinierten Mapbox-Stile sind live bestätigt.
+- Thunderforest, Carto und Wikimedia bleiben konfigurierbar, aber ungetestet.
+- Variantenfeld zeigt weiterhin 0–9 für alle Anbieter; bei Mapbox sind nur 0–4
+  gültig, 5–9 fallen auf Streets zurück. Providerabhängige Auswahl ist offen.
 - Theme stellt passende Iconfont bereit. Pinform ist nicht pixelgleich zu ExtraMarkers.
 - Beschreibungen sind Klartext, kein HTML oder Markdown in Popups.
 - V2 und Original nicht gleichzeitig aktiv betreiben.
