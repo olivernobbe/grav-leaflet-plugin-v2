@@ -79,6 +79,10 @@ Siehe [Abnahme](docs/COOLIFY-ABNAHME.md) und [Portierungsstand](docs/PORTIERUNG.
 ## Repositories
 
 Der Repositoryname für Forgejo und GitHub lautet **grav-leaflet-plugin-v2**.
+
+- [Forgejo-Repository](https://git.nobbe.eu/OliverNobbe/grav-leaflet-plugin-v2) (privat)
+- Ein nativer GitHub-Fork ist vorgesehen; dessen Adresse wird nach dem Anlegen ergänzt.
+
 Der Installationsordner und Konfigurationsschlüssel bleiben **map-marker-leaflet-v2**.
 
 ## Maintainer und Herkunft

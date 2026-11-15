@@ -5,10 +5,10 @@ icon: map
 author:
   name: Oliver Nobbe
   email: grav-leaflet-v2@nobbe.eu
-homepage: https://github.com/finanalyst/grav-plugin-map-marker-leaflet
+homepage: https://git.nobbe.eu/OliverNobbe/grav-leaflet-plugin-v2
 keywords: grav, plugin, map, markers, leaflet, openstreetmap, thunderforest, mapbox, opensource
-bugs: https://github.com/finanalyst/grav-plugin-map-marker-leaflet/issues
-docs: https://github.com/finanalyst/grav-plugin-map-marker-leaflet/blob/master/README.md
+bugs: https://git.nobbe.eu/OliverNobbe/grav-leaflet-plugin-v2/issues
+docs: https://git.nobbe.eu/OliverNobbe/grav-leaflet-plugin-v2
 license: MIT
 
 dependencies:
