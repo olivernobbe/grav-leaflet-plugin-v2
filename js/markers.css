@@ -1,0 +1,56 @@
+.mml-map { min-height: 100px; }
+.mml-map > .mml-marker-data { display: none; }
+/* Leaflet gives icons role=button. Themes such as Pico style that as a full
+   button, adding padding and a focus shadow. Reset only our own marker box;
+   Leaflet's inline margins/transform still position its geographic anchor. */
+.mml-map .mml-marker {
+  box-sizing: border-box;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+  background: transparent;
+  box-shadow: none;
+  line-height: normal;
+  overflow: visible;
+  transition: none;
+}
+.mml-map .mml-marker:focus { box-shadow: none; }
+.mml-map .mml-marker:focus:not(:focus-visible) { outline: none; }
+.mml-map .mml-marker:focus-visible {
+  outline: 2px solid var(--mml-focus-color, #245bcc);
+  outline-offset: 3px;
+}
+.mml-map .mml-pin {
+  display: block;
+  position: relative;
+  width: 32px;
+  height: 42px;
+  padding: 0;
+  margin: 0;
+  pointer-events: none;
+  isolation: isolate;
+  filter: drop-shadow(0 2px 2px #0005);
+}
+.mml-map .mml-pin-shape {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 32px;
+  height: 42px;
+  fill: var(--mml-color);
+  z-index: 0;
+}
+.mml-map .mml-pin-content {
+  position: absolute;
+  top: 4px;
+  left: 0;
+  width: 32px;
+  text-align: center;
+  font: bold 16px/24px sans-serif;
+  z-index: 1;
+}
+.mml-spin { animation: mml-spin 2s linear infinite; display: inline-block; }
+@keyframes mml-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .mml-spin { animation: none; } }

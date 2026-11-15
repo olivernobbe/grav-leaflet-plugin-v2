@@ -1,0 +1,3 @@
+# Enable V2 in Admin2 after disabling the original plugin.
+# Provider settings inherit from the original until explicitly saved for V2.
+enabled: false

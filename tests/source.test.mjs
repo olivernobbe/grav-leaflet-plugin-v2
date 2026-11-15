@@ -1,0 +1,26 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import PHPParser from 'php-parser';
+import {parse} from 'yaml';
+test('PHP parses; blueprint and defaults retain configuration keys; Leaflet is locked',async()=>{
+ const parser=new PHPParser({parser:{phpVersion:'8.3',suppressErrors:false}});
+ for(const file of ['map-marker-leaflet-v2.php','shortcodes/MapLeafletShortcodeV2.php','shortcodes/MapLeafletMarkerShortcodeV2.php']) parser.parseCode(await readFile(file,'utf8'),file);
+ const blueprint=parse(await readFile('blueprints.yaml','utf8'),{uniqueKeys:true});
+ const config=parse(await readFile('defaults.yaml','utf8'),{uniqueKeys:true});
+ assert.ok(blueprint.form.fields.enabled);
+ assert.ok(blueprint.form.fields.preffered);
+ assert.ok(blueprint.form.fields['providers.mapbox.apikey']);
+ assert.equal(config.provider,'openstreetmap');
+ const activation=parse(await readFile('map-marker-leaflet-v2.yaml','utf8'));
+ assert.equal(activation.enabled,false);
+ assert.equal(activation.provider,undefined);
+ const entry=await readFile('map-marker-leaflet-v2.php','utf8');
+ assert.ok(entry.includes('class MapMarkerLeafletV2Plugin'));
+ assert.ok(entry.includes('plugin://map-marker-leaflet-v2/assets/map-marker-leaflet-v2.js'));
+ assert.ok(entry.includes("plugins.map-marker-leaflet.enabled"));
+ assert.ok(config.providers.openstreetmap.tilestanza);
+ const lock=JSON.parse(await readFile('package-lock.json','utf8'));
+ assert.equal(lock.packages['node_modules/leaflet'].version,'2.0.0-beta.4');
+ assert.ok(!lock.packages['node_modules/leaflet-extra-markers']);
+});

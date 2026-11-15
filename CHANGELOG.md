@@ -1,3 +1,34 @@
+# 2.0.0-beta.4 (release candidate, unpublished)
+
+- Isolate custom marker layout from theme button padding, borders and focus shadows.
+- Draw the pin within its 32 x 42 px hit box; align popup tip with the marker top.
+- Preserve a visible keyboard focus indicator and keyboard popup activation.
+- Rename own entry/bundled assets to map-marker-leaflet-v2.js and .css.
+- Add geometry, theme-collision, keyboard and plain-text popup regression checks.
+- Include a four-file update ZIP for existing beta installations.
+
+# 2.0.0-beta.3 (development)
+
+- Open marker titles as plain-text popups on single click, retaining hover titles.
+- Verify popup opening/closing and isolation between maps in browser tests.
+
+# 2.0.0-beta.2 (development)
+
+- Separate installable map-marker-leaflet-v2 folder, plugin class, config and assets.
+- Default to disabled; prevent duplicate shortcode registration while original is active.
+- Inherit original provider settings without modifying the original configuration.
+- Include a ZIP for simple installation alongside the original plugin.
+
+# 2.0.0-beta.1 (development)
+
+- Target Grav 2 and Admin2; retain plugin slug, configuration keys and shortcode names.
+- Pin Leaflet 2.0.0-beta.4; bundle ES modules and CSS for installation without npm.
+- Replace inline generated JavaScript with escaped JSON and element-based initialization.
+- Replace incompatible ExtraMarkers with CSS DivIcons preserving color/icon/text options.
+- Fix multiple unnamed maps, group icon defaults, false booleans and number zero.
+- Add local browser/source tests and manual Coolify acceptance/rollback instructions.
+- Test-instance Grav cache and Admin2 acceptance remain pending.
+
 # v1.1.2
 ## 22 December 2020
 1.[](#Gantry compatibility)

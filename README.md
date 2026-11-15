@@ -1,189 +1,97 @@
-# Map Leaflet Plugin
+# Map Marker Leaflet V2
 
-The **Map Leaflet** Plugin is for [Grav CMS](http://github.com/getgrav/grav). Embed a map with markers using fontawesome icons or letters/numbers. Uses open source [Leaflet js library](https://leafletjs.com) with data from [OpenStreetMap](https://www.openstreetmap.org). [Extra-Marker Leaflet plugin](https://github.com/coryasilva/Leaflet.ExtraMarkers) is used for the markers. Enhanced map styling can be obtained from  [Thunderforest](https://www.thunderforest.com) or [MapBox](https://www.mapbox.com), but requires an api key (royalty free options are available).
+Grav 2 / Admin2 development plugin, version **2.0.0-beta.4**, Leaflet **2.0.0-beta.4**.
 
+## Installation auf der Testinstanz
 
-## Purpose
+1. `map-marker-leaflet-v2-2.0.0-beta.4.zip` herunterladen und entpacken.
+2. Den Ordner **map-marker-leaflet-v2** nach **user/plugins/** hochladen.
+3. Im Admin das Original **Map Marker Leaflet** deaktivieren, dann **Map Marker Leaflet V2** aktivieren.
+4. Grav-Cache im Admin leeren und die Kartenseite öffnen.
 
-Google changed its policy - effective June 2018 - about maps so that a credit card account had to be provided to access parts of the map api. OpenStreetMap provides map data as a community service, and Leaflet provides an opensource js library to access the map data. Maps can be enhanced by other third-party providers, who - like Google (at the time of writing) - require an apikey, but unlike Google do not require bank details.
+Kein Terminal, npm oder Build nötig. Das Original bleibt als eigener Ordner erhalten.
+Zum Rückbau V2 deaktivieren, Original aktivieren und Cache leeren.
+Die ursprüngliche Konfiguration `user/config/plugins/map-marker-leaflet.yaml` bleibt
+unverändert. V2 liest deren Karten-/Provideroptionen als Vorgabe. Nach dem Speichern
+von V2-Einstellungen stehen eigene Werte in `user/config/plugins/map-marker-leaflet-v2.yaml`.
+V2 ist nach dem Upload zunächst deaktiviert. Solange das Original aktiviert ist,
+registriert V2 keine Karten und meldet den Konflikt im Grav-Log.
 
-This plugin was written to provide an alternative to the `map-google` plugin and is based on `map-quest`.
+Die Shortcodes `[map-leaflet]` und `[a-markers]` bleiben unverändert. Bestehende
+Beiträge brauchen keine Anpassung. Die Referenz ist in `fixtures/brouwersdam.md`
+mit einer zweiten Karte enthalten; `fixtures/palette.md` enthält alle 20 Farben.
 
-Since OpenStreetMap provides tiles without charge, there are limitations on use and the service should be treated with respect.
+## Update von beta.2 / beta.3
 
-## Installation
+Am einfachsten den Inhalt des neuen ZIPs in den vorhandenen V2-Ordner hochladen
+und vorhandene Dateien ersetzen; Benutzerkonfiguration außerhalb des Pluginordners
+beibehalten. Für ein kleines Update enthält `map-marker-leaflet-v2-update-2.0.0-beta.4.zip`
+nur diese vier Dateien (innerhalb des bestehenden Pluginordners ersetzen):
 
-Installing the Map Leaflet plugin can be done in one of two ways. The GPM (Grav Package Manager) installation method enables you to quickly and easily install the plugin with a simple terminal command, while the manual method enables you to do so via a zip file.
+- `map-marker-leaflet-v2.php`
+- `blueprints.yaml`
+- `assets/map-marker-leaflet-v2.js`
+- `assets/map-marker-leaflet-v2.css`
 
-### GPM Installation (Preferred)
+Danach Grav-Cache im Admin leeren und die Beitragsseite neu laden. Plugin-Code und
+CSS sind eindeutig nach dem Plugin benannt; der Bundle enthält unverändertes
+Leaflet und unseren eigenen Initialisierungscode. Leaflet-Quelldateien werden
+nicht editiert. Der Quell-Einstieg heißt `js/map-marker-leaflet-v2.js`.
 
-The simplest way to install this plugin is via the [Grav Package Manager (GPM)](http://learn.getgrav.org/advanced/grav-gpm) through your system's terminal (also called the command line).  From the root of your Grav install type:
+Siehe [Beta-Abnahme und Releasevorbereitung](docs/BETA-RELEASE.md).
 
-    bin/gpm install map-leaflet
+## Optionen
 
-This will install the Map Leaflet plugin into your `/user/plugins` directory within Grav. Its files can be found under `/your/site/grav/user/plugins/map-leaflet`.
+Karte: lat, lng, zoom, scale, width, height, classes, mapname, variant und style.
+Standardgröße: 100% × 530px. Bei classes definiert das Theme die Größe.
+Unterstützte Maße: px, %, vh, vw, rem, em und 0; komplexe Ausdrücke über CSS-Klassen.
+Mehrere Karten ohne mapname funktionieren unabhängig; explizite IDs eindeutig wählen.
 
-### Manual Installation
+Marker: lat/lng erforderlich; markerColor, iconColor, icon, text, title, draggable,
+spin als Einzelwerte bzw. Gruppenoptionen. Text einschließlich 0 hat Vorrang vor
+Icons. Titel erscheinen beim Hover und als Popup nach einfachem Klick. Keine HTML-Ausführung im Text.
+Die 20 bisherigen Farboptionen bleiben erhalten; CSS-Pins haben eine leicht andere
+Optik als die früheren ExtraMarkers-Sprites.
 
-To install this plugin, just download the zip version of this repository and unzip it under `/your/site/grav/user/plugins`. Then, rename the folder to `map-leaflet`. You can find these files on [GitHub](https://github.com/finanalyst/grav-plugin-map-leaflet) or via [GetGrav.org](http://getgrav.org/downloads/plugins#extras).
+Das Theme muss die verwendete Iconfont laden, beispielsweise Font Awesome für
+`fa-solid fa-van-shuttle`. Diese Schrift wird nicht mitgeliefert. Es gibt kein
+globales `L`. Grav-Cache kann aktiv bleiben; JS wird als ES-Modul außerhalb der
+Grav-JS-Pipeline eingebunden. Providerdefinitionen einschließlich des historischen
+Schlüssels `preffered` bleiben erhalten; alte Mapbox-/Wikimedia-URLs sind nicht
+als funktionsfähig zertifiziert. Zunächst mit OpenStreetMap abnehmen.
 
-You should now have all the plugin files under
+Siehe auch [Leaflet-2-Migrationsprüfung](docs/LEAFLET2-AUDIT.md).
 
-    /your/site/grav/user/plugins/map-leaflet
+## Entwicklung
 
-> NOTE: This plugin is a modular component for Grav which requires [Grav](http://github.com/getgrav/grav) and the [Error](https://github.com/getgrav/grav-plugin-error) and [Problems](https://github.com/getgrav/grav-plugin-problems) to operate.
-
-### Admin Plugin
-
-If you use the admin plugin, you can install directly through the admin plugin by browsing the `Plugins` tab and clicking on the `Add` button.
-
-## Configuration
-
-Before configuring this plugin, you should copy the `user/plugins/map-leaflet/map-leaflet.yaml` to `user/config/plugins/map-leaflet.yaml` and only edit that copy.
-
-Here is the default configuration and an explanation of available options:
-
-```yaml
-enabled: true
-provider: opensteetmap
-variant:
-apikey:
+```sh
+npm ci
+npm run build
+npx playwright install chromium
+npm test
+python3 scripts/package.py
 ```
 
-- provider If the Admin plugin is used, then three provider options are provided.
-    1. OpenStreetMap - no further options are needed
-    1. Thunderforest - two further options are given
-        1. apikey - the provider requires an apikey, which for hobbyists is free.
-        1. variant - the style of the map. A list of available options is given (old t-style parameter is deprecated).
-    1. MapBox
-        1. apikey - as above
-        1. variant - as above (old m-style parameter is deprecated).
+Build und Browser-/Quellprüfungen lokal bestanden. Tatsächliche PHP-/Grav-Ausführung,
+warmer Grav-Cache und Anzeigen/Speichern in Admin2 sind noch manuell abzunehmen.
+Siehe [Abnahme](docs/COOLIFY-ABNAHME.md) und [Portierungsstand](docs/PORTIERUNG.md).
 
-Note that if you use the admin plugin, a file with your configuration, and named map-leaflet.yaml will be saved in the `user/config/plugins/` folder once the configuration is saved in the admin.
+## Repositories
 
-## Usage
+Der Repositoryname für Forgejo und GitHub lautet **grav-leaflet-plugin-v2**.
+Der Installationsordner und Konfigurationsschlüssel bleiben **map-marker-leaflet-v2**.
 
-The following example demonstrates how to embed an interactive map and place on it two sets of markers.
+## Maintainer und Herkunft
 
-The plugin provides two shortcodes:
-- `[map-leaflet]`
-    - options:
-        - lat -- the latitude of the centre of the map, defaults to 51.505 (London).
-        - lng -- the longitude of the centre of the map  defaults to -0.09
-        - zoom -- an integer from 1-24, see MapLeaflet documentation. Defaults to 13.
-        - width -- the width in browser coordinates for the map, without a class defaults to 100% (see below).
-        - height -- the height in browser coordinates, without a class defaults to 530px (see below).
-        - scale -- is either present or not present in shortcode. If present, then a Scale is shown; if not, no Scale is shown.
-        - variant -- override the variant configuration (old style option is deprecated).
-        - classes -- adds value of `classes` to the **class** attribute of the **div** containing the map. Defaults to ''.
-            - If `classes` is defined, then it is assumed one of the classes sets the *width* and *height* of the div (to allow for responsive map sizing). *width* and *height* must be set by a class in order for the map to be generated.
-    - contents:
-        - Empty, in which case only a map is generated.
-        - A set of `marker` codes.
-- `[a-markers]`
-    - options that if they are included in the shortcode become the default for each marker:
-        - `markerColor` -- one of colors listed below  (default = 'blue')
-        -` iconColor` -- an HTML colour code, (default = 'white')
-        - `draggable` -- see MapLeaflet documentation. By default False. True if either option is present, or given as draggable=True
-        - `spin` -- the icon spins (default = False), can be set as for draggable
-    - content between opening and closing shortcodes:
-        - A JSON **Array** of **Hash**, eg
-            `{"title": "popup text", "lat": 122.222, "lng": 22.9, "markerColor": "red" , "icon": "coffee" }`
-        - `lat` and `lng` are mandatory, and the others are optional. If not included, the default value is given to them.
-            - `title` -- the text for the popup of the marker (default = '')
-            - `text` -- the text inside the marker (default = '') Should be kept short.
-            - `markerColor`,` iconColor`,`draggable` and `spin` can be set in the hash or a default set in the shortcode.
+**Oliver Nobbe** pflegt diesen Fork und die Portierung auf Grav 2, Admin2 und
+Leaflet 2. Kontakt: [grav-leaflet-v2@nobbe.eu](mailto:grav-leaflet-v2@nobbe.eu).
 
-### Marker Colours
-Markers are coloured images, so only a finite number are possible. The following colors are provided:  
+Das ursprüngliche Plugin **Map Marker Leaflet** stammt von **Richard N Hainsworth
+(finanalyst)**. Dieser Fork baut auf dessen Quellcode auf; die Upstream-Git-Historie
+bleibt erhalten.
 
-| |  |  |  |
-|---|---|---|---|
-| red | orange | green | blue |
-| purple | darkred | darkblue | darkgreen |
-| darkpurple | cadetblue | lightred | beige |
-| lightgreen | lightblue | pink | salmon |
-|white | lightgray | gray | black |
+- [Original-Quellcode von Richard N Hainsworth](https://github.com/finanalyst/grav-plugin-map-marker-leaflet)
+- [Ursprüngliche MIT-Lizenz](https://github.com/finanalyst/grav-plugin-map-marker-leaflet/blob/master/LICENSE)
 
-The colours correspond to:
-![](assets/images/markers-soft.png)
-
-### Example
-The following code is in <path to grav>/user/pages/03.map/default.md
-```md
----
-title: Maps
-cache_enable: false
----
-# London Neighbourhoods
-[map-leaflet lat=51.505 lng=-0.09 zoom=13 mapname=neighbourhood variant=neighbourhood scale ]
-[a-markers markerColor="darkblue"
-iconColor="white"
-]
-[{ "lat": 37.7749, "lng": -122.4194, "icon": "home", "title": "Home Position" } ]
-[/a-markers]
-[a-markers icon=""]
-[  { "lat": 51.505,  "lng": -0.09 , "text": 1, "draggable": true  },
-{ "lat":  51.515,  "lng": -0.1 , "text": 2, "markerColor": "cadetblue" },
-{ "lat":   51.515,  "lng": -0.14, "text": 3, "spin": true },
-{ "lat":   51.505,  "lng": 0, "text": 4, "spin": false },
-{ "lat":   51.525,  "lng": -0.01, "icon": "coffee", "markerColor": "red", "title": "Lovely bistro"}
-]
-[/a-markers]
-[/map-leaflet]
-
-# San Fransisco Transport
-[map-leaflet lat=37.7749 lng=-122.4194 zoom=13 mapname=transd variant=transport-dark ]
-[a-markers markerColor="lightblue"
-iconColor="white"
-]
-[{ "lat": 37.7749, "lng": -122.4194, "icon": "home", "title": "Home Position" } ]
-[/a-markers]
-[a-markers icon=""]
-[  { "lat": 37.775,  "lng": -122.48 , "text": 1, "draggable": true  },
-{ "lat":  37.77,  "lng": -122.414 , "text": 2, "markerColor": "pink" },
-{ "lat":   37.765,  "lng": -122.409, "text": 3, "spin": true },
-{ "lat":   37.76,  "lng": -122.3995, "text": 4, "spin": false },
-{ "lat":   37.755,  "lng": -122.499, "icon": "coffee", "markerColor": "lightred", "title": "Lovely bistro"}
-]
-[/a-markers]
-[/map-leaflet]
-
-```
-
-First try this with OpenStreetMap. There are no styles, so the extra style information is discarded.
-
-Next, get an apikey from [Thunderforest Sign in](https://manage.thunderforest.com/users/sign_in) and add it to the plugin configuration.
-
-Next look at the maps in the example to see how styling can dramatically improve perception.
-
-Since the `style` can be changed inside the shortcode, different map styles can be given to the user to choose (for the two 3-party providers here). For example, a drop down box can be created in a form, and when the user responds with a map style change, it is included via Twig in the shortcode.
-
-In the example, the map style is taken from the page header.
-
-### Comments
-- cache_enable should be set to false as there has to be a call to the tile provider to get the data.
-- Any of the fontawesome icons can be included as markers.
-- Any alphanumeric text can be included, but too many characters > 3? will be ugly.
-- OpenStreetMap is the repository for map tiles, Leaflet is the library for managing the map tiles. However, styling the maps is subjective and there are multiple providers, such as Thunderforest and MapBox.
-
-### Disclaimer
-The coordinates in this illustration have no meaning.
-
-### Limitations
-- Due to the simple implementation of the shortcode, it is possible that there should only be one map on one page. It is possible that if more maps are defined, the marker will be placed on each, or only one, map.
-- do not set both 'text' and 'icon' for each marker.
-
-## Credits
-
-- Awesome work by Leaflet, OpenStreetMap, Thunderforest and MapBox.
-- [Extra-Marker Leaflet plugin](https://github.com/coryasilva/Leaflet.ExtraMarkers)
-- [Timothy Armes](github.com/timothyarmes) - for Thunderforest improvement.
-- @A---- for improving the providers and reducing dependencies
-- @lazybadger for correcting templates for Gantry
-
-## To Do
-- Update README to reflect move to Extra-marker leaflet plugin (some legacy remarks related to previous marker plugin)
-- Generalise the map provider list, initializing plugin from providers.yaml, so to add a new provider can be done by adding an entry to providers.yaml.
-    - This will happen if a use case is requested.
-- Add geoJSON code
+Der ursprüngliche Copyrightvermerk und die MIT-Lizenz stehen unverändert in
+[LICENSE](LICENSE). Leaflets BSD-Lizenz liegt in `assets/LEAFLET-LICENSE.txt`.

@@ -1,10 +1,10 @@
-name: Map Marker Leaflet
-version: 1.1.2
-description: Short codes to embed a map and markers using Leaflet, Extra-markers and OpenStreetMap (optionally other providers)
+name: Map Marker Leaflet V2
+version: 2.0.0-beta.4
+description: Grav 2 map shortcodes using Leaflet 2 ES modules and configurable markers
 icon: map
 author:
-  name: Richard N Hainsworth
-  email: rnhainsworth@gmail.com
+  name: Oliver Nobbe
+  email: grav-leaflet-v2@nobbe.eu
 homepage: https://github.com/finanalyst/grav-plugin-map-marker-leaflet
 keywords: grav, plugin, map, markers, leaflet, openstreetmap, thunderforest, mapbox, opensource
 bugs: https://github.com/finanalyst/grav-plugin-map-marker-leaflet/issues
@@ -12,7 +12,9 @@ docs: https://github.com/finanalyst/grav-plugin-map-marker-leaflet/blob/master/R
 license: MIT
 
 dependencies:
-    shortcode-core: shortcode-core
+    - name: grav
+      version: '>=2.0.0-beta.1'
+    - name: shortcode-core
 
 form:
     fields:
@@ -36,67 +38,31 @@ form:
                 carto: Carto
                 wikimedia: WikiMedia
             default: openstreetmap
-        mapboxstyle:
-            type: conditional
-            condition: "config.plugins['map-marker-leaflet'].provider == 'mapbox' "
-            fields:
-                preffered:
-                    type: select
-                    label: "Map Box Style"
-                    options:
-                        - 'mapbox.streets'
-                        - 'mapbox.outdoors'
-                        - 'mapbox.light'
-                        - 'mapbox.dark'
-                        - 'mapbox.satellite'
-                    default: 0
-                providers.mapbox.apikey:
-                    type: text
-                    label: API Key from the provider
-                    help: You should register your own API key with the provider and include it here
-                    default:  'querty'
-        thunderforeststyle:
-            type: conditional
-            condition: "config.plugins['map-marker-leaflet'].provider == 'thunderforest' "
-            fields:
-                preffered:
-                    type: select
-                    label: "Thunderforest Style"
-                    options:
-                        - 'cycle'
-                        - 'transport'
-                        - 'landscape'
-                        - 'outdoors'
-                        - 'transport-dark'
-                        - 'spinal-map'
-                        - 'pioneer'
-                        - 'mobile-atlas'
-                        - 'neighbourhood'
-                    default: 0
-                providers.thunderforest.apikey:
-                    type: text
-                    label: API Key from the provider
-                    help: You should register your own API key with the provider and include it here
-                    default:  'querty'
-        cartostyle:
-            type: conditional
-            condition: "config.plugins['map-marker-leaflet'].provider == 'carto' "
-            fields:
-                preffered:
-                    type: select
-                    label: "Carto Style"
-                    options:
-                        - 'light_all'
-                        - 'light_nolabels'
-                        - 'light_only_labels'
-                        - 'dark_all'
-                        - 'dark_nolabels'
-                        - 'dark_only_labels'
-                        - 'rastertiles/voyager'
-                        - 'rastertiles/voyager_nolabels'
-                        - 'rastertiles/voyager_only_labels'
-                        - 'rastertiles/voyager_labels_under'
-                    default: 0
-                providers.carto.apikey:
-                    type: hidden
-                    default:  ''
+        preffered:
+            type: select
+            label: Provider variant index (legacy preffered)
+            help: Index in providers.<provider>.variants; shortcode variant overrides this selection.
+            default: 0
+            options:
+                0: '0 (first variant)'
+                1: '1'
+                2: '2'
+                3: '3'
+                4: '4'
+                5: '5'
+                6: '6'
+                7: '7'
+                8: '8'
+                9: '9'
+            validate:
+                type: int
+                min: 0
+                max: 9
+        providers.thunderforest.apikey:
+            type: text
+            label: Thunderforest API key
+            help: Stored only in your local plugin configuration. Sent to the tile provider by the browser.
+        providers.mapbox.apikey:
+            type: text
+            label: Mapbox API key
+            help: Legacy tile URL may require updating for your account.

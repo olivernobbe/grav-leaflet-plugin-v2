@@ -1,14 +1,4 @@
-<div id="{{ mapname|raw }}" {% if classes %}class="{{ classes|raw }}"{% else %}style="width: {{ width|raw }}; height: {{ height|raw }};" {%endif %}></div>
-<script>
-document.addEventListener('DOMContentLoaded', function(event) {
-  var map = L.map('{{ mapname|raw }}').setView([{{ lat|raw }}, {{ lng|raw }}],{{ zoom|raw }});
-  L.tileLayer('{{ tilestanza|raw }}', {
-    attribution: '{{ attribution|raw }}',
-    maxZoom: {{ maxzoom|raw }}
-    {% if apikey %}, apikey: '{{ apikey|raw }}'{% endif %}
-    {% if variant %}, variant: "{{ variant|raw }}"{% endif %}
-  }).addTo(map);
-  {% if scale %}L.control.scale().addTo(map);{% endif %}
-{{ markercode|raw }}
-})
-</script>
+<div{% if mapname %} id="{{ mapname|e('html_attr') }}"{% endif %} class="mml-map {{ classes|e('html_attr') }}"{% if not classes %} style="width: {{ width|e('html_attr') }}; height: {{ height|e('html_attr') }};"{% endif %}>
+<script type="application/json">{{ settings|raw }}</script>
+{{ markers|raw }}
+</div>
