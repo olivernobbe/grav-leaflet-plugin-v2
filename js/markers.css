@@ -56,7 +56,7 @@
 @media (prefers-reduced-motion: reduce) { .mml-spin { animation: none; } }
 .mml-map .mml-mapbox-logo {
   display: block;
-  background: #fff;
+  background: transparent;
   padding: 3px;
   line-height: 0;
 }

@@ -1,10 +1,10 @@
 # Map Marker Leaflet V2
 
-Grav 2 / Admin2 beta plugin, version **2.0.0-beta.13**, Leaflet **2.0.0-beta.4**.
+Grav 2 / Admin2 beta plugin, version **2.0.0-beta.14**, Leaflet **2.0.0-beta.4**.
 
 ## Installation auf der Testinstanz
 
-1. `map-marker-leaflet-v2-2.0.0-beta.13.zip` herunterladen und entpacken.
+1. `map-marker-leaflet-v2-2.0.0-beta.14.zip` herunterladen und entpacken.
 2. Den Ordner **map-marker-leaflet-v2** nach **user/plugins/** hochladen.
 3. Im Admin das Original **Map Marker Leaflet** deaktivieren, dann **Map Marker Leaflet V2** aktivieren.
 4. Grav-Cache im Admin leeren und die Kartenseite öffnen.
@@ -23,26 +23,15 @@ Die Shortcodes `[map-leaflet]` und `[a-markers]` bleiben unverändert. Bestehend
 Beiträge brauchen keine Anpassung. Die Referenz ist in `fixtures/brouwersdam.md`
 mit einer zweiten Karte enthalten; `fixtures/palette.md` enthält alle 20 Farben.
 
-## Update auf beta.13
+## Update auf beta.14
 
-Den Inhalt des vollständigen ZIPs oder des kleinen Update-ZIPs
-`map-marker-leaflet-v2-update-2.0.0-beta.13.zip` in den vorhandenen V2-Ordner
-hochladen und vorhandene Dateien ersetzen; Unterordner zusammenführen.
-Die Benutzerkonfiguration außerhalb des Pluginordners beibehalten. Das Update-ZIP
-enthält neben JS/CSS auch PHP, Defaults und das Mapbox-Logo; deshalb vollständig
-hochladen, nicht nur eine einzelne JavaScriptdatei ersetzen.
+Das Update-ZIP `map-marker-leaflet-v2-update-2.0.0-beta.14.zip` in den
+vorhandenen V2-Ordner hochladen und die Datei ersetzen. Es enthält nur die
+geänderten Dateien. Die Benutzerkonfiguration außerhalb des Pluginordners
+beibehalten. Danach Grav-Cache leeren und die Kartenseite neu laden.
 
-Danach Grav-Cache im Admin leeren und die Beitragsseite neu laden. Das Update
-begrenzt CARTO-Karten und Rasteranfragen auf Zoomstufe 18 und hebt OSMs Grenze
-auf Zoomstufe 19 an. Wikimedia Maps wird nicht mehr angeboten; eine alte
-Wikimedia-Auswahl wird auf OSM umgeleitet. Siehe
-[Beta-13-Änderungen](docs/RELEASE-v2.0.0-beta.13.md). Das Update
-ergänzt die Admin2-Variantenübersicht sowie die CARTO-Key-Einstellung und
-verwendet CARTOs dokumentierten Raster-Tilepfad. Alte eingebaute CARTO-URLs und
-Variantenwerte werden bei der Ausgabe kompatibel angepasst. Falls eine alte
-Konfiguration unter CARTO auf Wikimedia zeigt, fällt V2 auf die CARTO-Standard-URL
-zurück. Der CARTO-Key wird in
-der lokalen Plugin-Konfiguration gespeichert; diese bleibt erhalten.
+Beta 14 macht den Hintergrund hinter dem Mapbox-Logo transparent. Logo und
+Größe bleiben unverändert. Details: [Beta-14-Änderungen](docs/RELEASE-v2.0.0-beta.14.md).
 
 Siehe [Beta-9-Änderungen und Grav-Abnahme](docs/RELEASE-v2.0.0-beta.9.md).
 

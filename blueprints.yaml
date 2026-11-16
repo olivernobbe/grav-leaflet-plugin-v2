@@ -1,5 +1,5 @@
 name: Map Marker Leaflet V2
-version: 2.0.0-beta.13
+version: 2.0.0-beta.14
 description: Grav 2 map shortcodes using Leaflet 2 ES modules and configurable markers
 icon: map
 author:

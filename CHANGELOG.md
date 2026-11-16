@@ -1,3 +1,7 @@
+# 2.0.0-beta.14 (2026-11-15)
+
+- Make the Mapbox logo control background transparent; keep the official logo and its size unchanged.
+
 # 2.0.0-beta.13 (2026-11-15)
 
 - Remove Wikimedia Maps as a selectable provider because its terms prohibit unrelated third-party map use.

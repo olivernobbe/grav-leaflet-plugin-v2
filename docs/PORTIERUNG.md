@@ -1,6 +1,6 @@
 # Portierungsstand
 
-Aktueller Beta-Stand: **2.0.0-beta.13**, Branch `feat/grav2-leaflet2`.
+Aktueller Beta-Stand: **2.0.0-beta.14**, Branch `feat/grav2-leaflet2`.
 [Abnahme und Releasevorbereitung](BETA-RELEASE.md) ist der aktuelle Teststand.
 
 ## Ausgangspunkt und Kompatibilität
