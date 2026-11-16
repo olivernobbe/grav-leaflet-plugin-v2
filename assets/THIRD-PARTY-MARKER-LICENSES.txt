@@ -1,0 +1,64 @@
+Third-party licenses for legacy marker image assets
+===================================================
+
+The following image files are retained from the plugin's original Leaflet
+marker integrations. Current V2 marker rendering does not reference them, but
+they are included in the distribution for compatibility and provenance.
+
+Leaflet.ExtraMarkers
+--------------------
+Assets: images/markers_default.png, images/markers_default@2x.png,
+images/markers_shadow.png, images/markers_shadow@2x.png.
+Source: https://github.com/coryasilva/Leaflet.ExtraMarkers
+The original plugin pinned Leaflet.ExtraMarkers v1.1.0 at commit
+c2ac67f7139b1ae07914f3f671f08a0a7b32adc0.
+
+The MIT License (MIT)
+Copyright (c) 2014 Cory Silva (coryasilva)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+Leaflet.awesome-markers
+-----------------------
+Assets: images/markers-matte.png, images/markers-matte@2x.png,
+images/markers-plain.png, images/markers-shadow.png,
+images/markers-shadow@2x.png, images/markers-soft.png,
+images/markers-soft@2x.png.
+Source: https://github.com/lennardv2/Leaflet.awesome-markers
+Leaflet.ExtraMarkers is based on Leaflet.awesome-markers.
+
+Copyright (C) 2013 L. Voogdt
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

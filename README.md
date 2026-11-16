@@ -1,10 +1,10 @@
 # Map Marker Leaflet V2
 
-Grav 2 / Admin2 beta plugin, version **2.0.0-beta.14**, Leaflet **2.0.0-beta.4**.
+Grav 2 / Admin2 beta plugin, version **2.0.0-beta.15**, Leaflet **2.0.0-beta.4**.
 
 ## Installation auf der Testinstanz
 
-1. `map-marker-leaflet-v2-2.0.0-beta.14.zip` herunterladen und entpacken.
+1. `map-marker-leaflet-v2-2.0.0-beta.15.zip` herunterladen und entpacken.
 2. Den Ordner **map-marker-leaflet-v2** nach **user/plugins/** hochladen.
 3. Im Admin das Original **Map Marker Leaflet** deaktivieren, dann **Map Marker Leaflet V2** aktivieren.
 4. Grav-Cache im Admin leeren und die Kartenseite öffnen.
@@ -23,15 +23,16 @@ Die Shortcodes `[map-leaflet]` und `[a-markers]` bleiben unverändert. Bestehend
 Beiträge brauchen keine Anpassung. Die Referenz ist in `fixtures/brouwersdam.md`
 mit einer zweiten Karte enthalten; `fixtures/palette.md` enthält alle 20 Farben.
 
-## Update auf beta.14
+## Update auf beta.15
 
-Das Update-ZIP `map-marker-leaflet-v2-update-2.0.0-beta.14.zip` in den
+Das Update-ZIP `map-marker-leaflet-v2-update-2.0.0-beta.15.zip` in den
 vorhandenen V2-Ordner hochladen und die Datei ersetzen. Es enthält nur die
 geänderten Dateien. Die Benutzerkonfiguration außerhalb des Pluginordners
 beibehalten. Danach Grav-Cache leeren und die Kartenseite neu laden.
 
-Beta 14 macht den Hintergrund hinter dem Mapbox-Logo transparent. Logo und
-Größe bleiben unverändert. Details: [Beta-14-Änderungen](docs/RELEASE-v2.0.0-beta.14.md).
+Beta 15 ergänzt die MIT-Lizenztexte für die mitgelieferten historischen
+ExtraMarkers- und Awesome-Markers-Bilddateien. Details:
+[Beta-15-Änderungen](docs/RELEASE-v2.0.0-beta.15.md).
 
 Siehe [Beta-9-Änderungen und Grav-Abnahme](docs/RELEASE-v2.0.0-beta.9.md).
 
@@ -106,3 +107,5 @@ bleibt erhalten.
 
 Der ursprüngliche Copyrightvermerk und die MIT-Lizenz stehen unverändert in
 [LICENSE](LICENSE). Leaflets BSD-Lizenz liegt in `assets/LEAFLET-LICENSE.txt`.
+Die MIT-Hinweise für die mitgelieferten historischen ExtraMarkers- und
+Awesome-Markers-Bilder stehen in `assets/THIRD-PARTY-MARKER-LICENSES.txt`.

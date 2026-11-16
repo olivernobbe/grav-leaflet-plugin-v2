@@ -1,3 +1,7 @@
+# 2.0.0-beta.15 (2026-11-16)
+
+- Include the MIT notices for the retained Leaflet.ExtraMarkers and Leaflet.awesome-markers image assets.
+
 # 2.0.0-beta.14 (2026-11-15)
 
 - Make the Mapbox logo control background transparent; keep the official logo and its size unchanged.
